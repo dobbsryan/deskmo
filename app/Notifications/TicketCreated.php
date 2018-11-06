@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use app\TicketEntry;
+use App\TicketEntry;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -12,6 +12,8 @@ use Illuminate\Notifications\Messages\NexmoMessage;
 class TicketCreated extends Notification
 {
     use Queueable;
+
+    protected $entry;
 
     /**
      * Create a new notification instance.
