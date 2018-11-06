@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Auth;
 use App\User;
 use App\Ticket;
+use Notification;
 use App\TicketEntry;
 use App\TicketSubscription;
 use Illuminate\Http\Request;
-
+use App\Notifications\TicketCreated;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TicketController extends Controller
@@ -76,6 +77,9 @@ class TicketController extends Controller
         $cc->user()->associate(User::find($data['recipient']));
         $cc->ticket()->associate($ticket);
         $cc->save();
+
+        // fire off the notification
+        Notification::send($ticket->subscribedUsers()->get(), new TicketCreated($entry));
 
         return redirect(route('ticket.index'));
     }

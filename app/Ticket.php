@@ -14,4 +14,9 @@ class Ticket extends Model
     {
         return $this->hasMany(TicketEntry::class);
     }
+
+    public function subscribedUsers()
+    {
+        return $this->belongsToMany(User::class, 'ticket_subscriptions');
+    }
 }
