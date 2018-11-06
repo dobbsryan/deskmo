@@ -29,14 +29,15 @@ class TicketCreated extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
+    public function via($notifiable)
+    {
+        return ['nexmo'];
+    }
+
     public function toNexmo($notifiable)
     {
         return (new NexmoMessage)->content($this->entry->content);
     }
-    // public function via($notifiable)
-    // {
-    //     return ['mail'];
-    // }
 
     /**
      * Get the mail representation of the notification.
