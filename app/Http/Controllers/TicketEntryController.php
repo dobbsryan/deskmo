@@ -34,7 +34,7 @@ class TicketEntryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        error_log(print_r($request->all(), true));
     }
 
     /**
