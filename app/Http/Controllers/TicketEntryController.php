@@ -36,31 +36,31 @@ class TicketEntryController extends Controller
      */
     public function store(Request $request)
     {
-        // // Make sure it's in the correct format
-        // $data = $this->validate($request, [
-        //     'msisdn' => 'required',
-        //     'text' => 'required'
-        // ]);
+        // Make sure it's in the correct format
+        $data = $this->validate($request, [
+            'msisdn' => 'required',
+            'text' => 'required'
+        ]);
 
-        // // Find the user based on their phone number
-        // $user = User::where('phone_number', $data['msisdn'])->firstOrFail();
+        // Find the user based on their phone number
+        $user = User::where('phone_number', $data['msisdn'])->firstOrFail();
 
-        // // And then find their latest ticket
-        // $ticket = $user->latestTicketWithActivity();
+        // And then find their latest ticket
+        $ticket = $user->latestTicketWithActivity();
 
-        // // Create a new entry with the incoming SMS content
-        // $entry = new TicketEntry([
-        //     'content' => $data['text'],
-        //     'channel' => 'sms',
-        // ]);
+        // Create a new entry with the incoming SMS content
+        $entry = new TicketEntry([
+            'content' => $data['text'],
+            'channel' => 'sms',
+        ]);
 
-        // // Attach this entry to the user and ticket, then save
-        // $entry->user()->associate($user);
-        // $entry->ticket()->associate($ticket);
-        // $entry->save();
+        // Attach this entry to the user and ticket, then save
+        $entry->user()->associate($user);
+        $entry->ticket()->associate($ticket);
+        $entry->save();
 
-        // return response('', 204);
-        error_log(print_r($request->all(), true));
+        return response('', 204);
+        // error_log(print_r($request->all(), true));
     }
 
     /**
